@@ -8,7 +8,7 @@ public class EndPoint : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("You Win!");
+            GameManager.Instance.GameClear();
         }
     }
 }

@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     float vx = 0;
     float prevVx = 0;
     private State state;
+    public GameObject BulletPrefab;
     Vector2 originalPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -101,6 +102,24 @@ public class PlayerController : MonoBehaviour
         prevVx = vx;
         
         GetComponent<Rigidbody2D>().linearVelocity = new Vector2(vx, vy);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Vector2 bulletV = new Vector2(5, 0);
+
+            if (GetComponent<SpriteRenderer>().flipX)
+            {
+                bulletV.x = -bulletV.x;
+            }
+
+            GameObject bullet = GameManager.Instance.BulletPool.GetObject();
+            bullet.transform.position = transform.position;
+            bullet.GetComponent<Bullet>().Velocity = bulletV;
+            
+
+        }
+        
+        
     }
     
     public void Restart()

@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public float TimeLimit = 20;
     private static GameManager instance;
     private int life = 3;
+    public bool IsCleared = false;
+    public ObjectPool BulletPool;
+    [SerializeField]
+    private GameObject PopupCanvas;
     public static GameManager Instance
     {
         get
@@ -35,6 +39,10 @@ public class GameManager : MonoBehaviour
     {
         TimeLimit -= Time.deltaTime;
         TimeLimitLable.text = "Time Left: " + ((int)TimeLimit);
+        if (TimeLimit <= 0)
+        {
+            GameOver();
+        }
     }
 
     public void AddTime(float time)
@@ -66,7 +74,17 @@ public class GameManager : MonoBehaviour
     
     void GameOver()
     {
-        Debug.Log("Game Over");
+        IsCleared = false;
+        PopupCanvas.SetActive(true);
     }
+
+    public void GameClear()
+    {
+        IsCleared = true;
+        PopupCanvas.SetActive(true);
+        
+    }
+    
+    
     
 }
